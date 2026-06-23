@@ -89,13 +89,13 @@ public class Conta {
 			tipo = "Conta Corrente";
 			break;
 		case 2:
-			tipo = "Conta Poupança";
+			tipo = "Conta Poupanca";
 			break;
 		}
 		
 		System.out.println("\n\n*****************************************");
-		System.out.println("Dados da Conta:");
-		System.out.println("\n\n*****************************************");
+		System.out.println("            DADOS DA CONTA:");
+		System.out.println("*****************************************\n");
 		System.out.printf("Número da Conta: %d%n", this.numero);
 		System.out.printf("Agência: %d%n", this.agencia);
 		System.out.printf("Tipo da Conta: %s%n", this.tipo);

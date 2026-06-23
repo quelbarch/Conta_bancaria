@@ -3,7 +3,10 @@ package conta_bancaria;
 import java.util.Scanner;
 
 import conta_bancaria.model.Conta;
+import conta_bancaria.model.ContaCorrente;
+import conta_bancaria.model.ContaPoupanca;
 import conta_bancaria.util.Cores;
+
 
 public class Menu {
 	public static void main(String[] args) {
@@ -43,11 +46,27 @@ public class Menu {
 		c2.visualizar();
 		
 		
+		/*Instanciar Objetos da Classe ContaCorrente*/
+		
+		ContaCorrente cc1 = new ContaCorrente(3, 789, 1, "Raquel", 200000.00f, 2000.00f);
+		cc1.visualizar();
+		
+		System.out.println("\nSacar R$ 203.000,00 da conta Cc1: " + (cc1.sacar(203000.00f) ?
+				"Saque efetuado com sucesso! | Saldo: " + cc1.getSaldo() : "Saldo Insuficiente | Saldo: " + cc1.getSaldo()));
+		
+		System.out.println("\nSacar R$ 202.000,00 da conta Cc1: " + (cc1.sacar(202000.00f) ?
+				"Saque efetuado com sucesso! | Saldo: " + cc1.getSaldo() : "Saldo Insuficiente | Saldo: " + cc1.getSaldo()));
+		
+		/*Teste Conta Poupança*/
+		
+		ContaPoupanca cc2 = new ContaPoupanca (4, 555, 2, "Julia", 100000.00f, 23);
+		cc2.visualizar();
+		
 		
 		while (true) {
 			
 			System.out.println(Cores.TEXT_GREEN + Cores.ANSI_BLACK_BACKGROUND 
-					+ "*************************************************************");
+					+ "\n*************************************************************");
 			System.out.println("                                                             ");
 			System.out.println("                    BANCO DO BRAZIL COM Z                    ");
 			System.out.println("                                                             ");
