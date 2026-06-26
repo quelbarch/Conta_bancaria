@@ -41,6 +41,7 @@ public class Menu {
 			System.out.println("                 6- Sacar                                    ");
 			System.out.println("                 7- Depositar                                ");
 			System.out.println("                 8- Transferir valores entre Contas          ");
+			System.out.println("                 9- Consultar por nome do titular            ");
 			System.out.println("                 0- Sair                                     ");
 			System.out.println("                                                             ");
 			System.out.println(Cores.TEXT_GREEN + "*************************************************************");
@@ -52,77 +53,87 @@ public class Menu {
 			    leia.nextLine();
 			}catch(InputMismatchException e) {
 				opcao = -1;
-				System.out.println("Digite um número inteiro entre 0 e 8");
+				System.out.println("Digite um número inteiro entre 0 e 9");
 				leia.nextLine();
 			}
 			
 
 			if (opcao == 0) {
-				System.out.println(Cores.TEXT_GREEN + "\nBanco do Brazil com Z - O seu Futuro começa aqui!");
+				System.out.println(Cores.TEXT_GREEN + Cores.ANSI_BLACK_BACKGROUND +  "\nBanco do Brazil com Z - O seu Futuro começa aqui!            ");
+				System.out.println("                                                             " + Cores.TEXT_RESET);
 				sobre();
                 leia.close();
 				System.exit(0);
 		}
 			switch (opcao) {
 			case 1:
-				System.out.println(Cores.TEXT_WHITE_BOLD + "\nCriar Conta\n\n");
+				System.out.println(Cores.TEXT_YELLOW + "\nCriar Conta\n\n");
                 cadastrarConta();
                 keyPress();
 				break;
 			case 2:
-				System.out.println(Cores.TEXT_WHITE_BOLD + "\nListar todas as Contas\n\n");
-				
+				System.out.println(Cores.TEXT_YELLOW + "\nListar todas as Contas\n\n");
 				listarContas();
 				keyPress();
 				break;
 			case 3:
-				System.out.println(Cores.TEXT_WHITE_BOLD + "\nConsultar dados da Conta - por número\n\n");
+				System.out.println(Cores.TEXT_YELLOW + "\nConsultar dados da Conta - por número\n\n");
 				procurarContaPorNumero();
 				keyPress();
 				break;
 			case 4:
-				System.out.println(Cores.TEXT_WHITE_BOLD + "\nAtualizar dados da Conta\n\n");
+				System.out.println(Cores.TEXT_YELLOW + "\nAtualizar dados da Conta\n\n");
 				atualizarConta();
 				keyPress();
 				break;
 			case 5:
-				System.out.println(Cores.TEXT_WHITE_BOLD + "\nApagar a Conta\n\n");
+				System.out.println(Cores.TEXT_YELLOW + "\nApagar a Conta\n\n");
 				deletarConta();
 				keyPress();
 				break;
 			case 6:
-				System.out.println(Cores.TEXT_WHITE_BOLD + "\nSaque\n\n");
-
+				System.out.println(Cores.TEXT_YELLOW + "\nSaque\n\n");
+                sacar();
 				break;
 			case 7:
-				System.out.println(Cores.TEXT_WHITE_BOLD + "\nDepósito\n\n");
+				System.out.println(Cores.TEXT_YELLOW + "\nDepósito\n\n");
+				depositar();
 				keyPress();
 				break;
 			case 8:
-				System.out.println(Cores.TEXT_WHITE_BOLD + "\nTransferência entre Contas\n\n");
+				System.out.println(Cores.TEXT_YELLOW + "\nTransferência entre Contas\n\n");
+				transferir();
+				keyPress();
+				break;
+			case 9:
+				System.out.println(Cores.TEXT_YELLOW + "Consulta por nome do titular\n\n");
+				listarPorTitular();
 				keyPress();
 				break;
 			default:
-				System.out.println(Cores.TEXT_WHITE_BOLD + "\nOpção Inválida!\n");
+				System.out.println(Cores.TEXT_RED + "\nOpção Inválida!\n");
 				keyPress();
 				break;
 		}
 	}
 }
-		public static void keyPress() {
-			System.out.println(Cores.TEXT_RESET + "\n\nPressione Enter para continuar...");
-			leia.nextLine();
-		}
+
 
             public static void sobre() {
-	            System.out.println("\n*********************************************************");
-	            System.out.println(Cores.TEXT_YELLOW + "Projeto Desenvolvido por Raquel ");
-	            System.out.println("Generation Brasil - raqueln@genstudents.org");
-	            System.out.println("Github: https://github.com/quelbarch");
-	            System.out.println("                                                                            " + Cores.TEXT_RESET);
-	            System.out.println(Cores.TEXT_GREEN + "*********************************************************");
+	            System.out.println(Cores.TEXT_GREEN + Cores.ANSI_BLACK_BACKGROUND + "*************************************************************");
+	            System.out.println(Cores.TEXT_YELLOW + "Projeto Desenvolvido por Raquel                              ");
+	            System.out.println("Generation Brasil - raqueln@genstudents.org                  ");
+	            System.out.println("Github: https://github.com/quelbarch                         ");
+	            System.out.println("                                                             ");
+	            System.out.println(Cores.TEXT_GREEN + Cores.ANSI_BLACK_BACKGROUND + 
+	            		"*************************************************************" + Cores.TEXT_RESET);
          }
             
+    		public static void keyPress() {
+    			System.out.println(Cores.TEXT_YELLOW + "\n\nPressione Enter para continuar...");
+    			leia.nextLine();
+    	}
+    		
          public static void criarContasTestes() {
         	 contaController.cadastrar(new ContaCorrente(contaController.gerarNumero(), 456, 1, "Thuany Silva", 1000000.00f, 100000.00f));
      		 contaController.cadastrar(new ContaPoupanca(contaController.gerarNumero(), 456, 2, "Marcia Condarco", 1000000.00f, 10));
@@ -135,30 +146,33 @@ public class Menu {
             
          public static void cadastrarConta() {
         	 
-        	 System.out.println("Digite o número da agência: ");
+        	 System.out.println(Cores.TEXT_YELLOW + "Digite o número da agência: "  + Cores.TEXT_WHITE);
         	 int agencia = leia.nextInt();
         	 
-        	 System.out.println("Digite o nome do titular da conta: ");
+        	 System.out.println(Cores.TEXT_YELLOW + "Digite o nome do titular da conta: " + Cores.TEXT_WHITE);
         	 leia.skip("\\R");
         	 String titular = leia.nextLine();
         	 
-        	 System.out.println("Digite o tipo da conta (1 - CC | 2 - CP): ");
+        	 System.out.println(Cores.TEXT_YELLOW + "Digite o tipo da conta (1 - CC | 2 - CP): " + Cores.TEXT_WHITE);
         	 int tipo = leia.nextInt();
         	 
-        	 System.out.println("Digite o saldo da conta: ");
+        	 System.out.println(Cores.TEXT_YELLOW + "Digite o saldo da conta: " + Cores.TEXT_WHITE);
         	 float saldo = leia.nextFloat();
         	 
         	 switch(tipo) {
         	 case 1 ->{
-        		 System.out.println("Digite o limite da conta: ");
+        		 System.out.println(Cores.TEXT_YELLOW + "Digite o limite da conta: " + Cores.TEXT_WHITE );
+        		 
         		 float limite = leia.nextFloat();
+        		 leia.nextLine();
         		 
         		 contaController.cadastrar(
         				 new ContaCorrente(contaController.gerarNumero(), agencia, tipo, titular, saldo, limite));
         	 }
         	 case 2 -> {
-        		 System.out.println("Digite o dia do aniversário da conta: ");
+        		 System.out.println(Cores.TEXT_YELLOW + "Digite o dia do aniversário da conta: " + Cores.TEXT_WHITE);
         		 int aniversario = leia.nextInt();
+        		 leia.nextLine();
         		 
      				contaController.cadastrar(
      						new ContaPoupanca(contaController.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
@@ -170,7 +184,7 @@ public class Menu {
         	 
        public static void procurarContaPorNumero() {
     	   
-    	   System.out.println("Digite o número da conta: ");
+    	   System.out.println(Cores.TEXT_YELLOW + "Digite o número da conta: " + Cores.TEXT_WHITE);
     	   int numero = leia.nextInt();
     	   leia.nextLine();
     	   
@@ -179,7 +193,7 @@ public class Menu {
        
        public static void deletarConta() {
    		
-    	   System.out.println("Digite o número da conta: ");
+    	   System.out.println(Cores.TEXT_YELLOW + "Digite o número da conta: " + Cores.TEXT_WHITE);
     	   int numero = leia.nextInt();
     	   leia.nextLine();
     	   
@@ -189,22 +203,22 @@ public class Menu {
     		   
     		   //Confirmação da exclusãop
     		   
-    		   System.out.printf("Tem certaza que você deseja excluir a conta número %d (S/N)?", numero);
+    		   System.out.printf(Cores.TEXT_YELLOW + "Tem certaza que você deseja excluir a conta número %d (S/N)?"+ Cores.TEXT_WHITE , numero);
     		   String confirmacao = leia.nextLine();
     		   
     		   if(confirmacao.equalsIgnoreCase("S")) 
     			   contaController.deletar(numero);
     		   else
-    			   System.out.println("\nOperação cancelada!");
+    			   System.out.println(Cores.TEXT_RED + "\nOperação cancelada!");
     		   
     		   }else {
-    			   System.out.printf("\nA conta número %d não foi encontrada", numero);
+    			   System.out.printf(Cores.TEXT_RED + "\nA conta número %d não foi encontrada" + Cores.TEXT_WHITE , numero);
     		   }
     	   }
        
        public static void atualizarConta() {
     	   
-    	   System.out.println("Digite o número da conta: ");
+    	   System.out.println("Digite o número da conta: " + Cores.TEXT_WHITE);
     	   int numero = leia.nextInt();
     	   leia.nextLine();
     	   
@@ -219,22 +233,21 @@ public class Menu {
     		   float saldo = conta.get().getSaldo();
     		   
     		   //Atualiza a agência ou mantém o valor atual
-    		   System.out.printf("Agência atual: %d"
-    		   		+ "%nDigite o número da nova agência (Pressione ENTER para manter o valor atual) ", agencia);
+    		   System.out.printf(Cores.TEXT_YELLOW + "Agência atual: " + Cores.TEXT_WHITE + "%d" + Cores.TEXT_YELLOW + 
+    				    "%nDigite o número da nova agência " + Cores.TEXT_GREEN + "(Pressione ENTER para manter o valor atual) " + Cores.TEXT_WHITE, agencia);
     		   String entrada = leia.nextLine();
     		   
     		   agencia = entrada.isEmpty() ? agencia : Integer.parseInt(entrada);
     		   
     		   //Atualiza o titular ou mantém o valor atual
-    		   System.out.printf("Titular atual: %s"
-    				   + "%nDigite o nome do novo titular (Pressione ENTER para manter o valor atual) ", titular);
+    		   System.out.printf(Cores.TEXT_YELLOW + "Titular atual: " + Cores.TEXT_WHITE + "%s" + Cores.TEXT_YELLOW 
+    				   + "%nDigite o nome do novo titular " + Cores.TEXT_GREEN + "(Pressione ENTER para manter o valor atual) " + Cores.TEXT_WHITE, titular);
     		   entrada = leia.nextLine();
     		   
     		   titular = entrada.isEmpty() ? titular : entrada;
     		   
     		 //Atualiza o saldo ou mantém o valor atual
-    		   System.out.printf("Saldo atual: %s"
-    				   + "%nDigite o novo saldo (Pressione ENTER para manter o valor atual) ", saldo);
+    		   System.out.printf(Cores.TEXT_YELLOW + "Saldo atual: " + Cores.TEXT_WHITE + "%s" + Cores.TEXT_YELLOW + "%nDigite o novo saldo " + Cores.TEXT_GREEN + "(Pressione ENTER para manter o valor atual) " + Cores.TEXT_WHITE, saldo);
     		   entrada = leia.nextLine();
     		   
     		   saldo = entrada.isEmpty() ? saldo : Float.parseFloat(entrada.replace(",","."));
@@ -245,8 +258,8 @@ public class Menu {
     			   float limite = contaCorrente.getLimite();
     			   
     			   //Atualiza o limite ou mantém o valor atual
-    			   System.out.printf("Limite atual: %.2f"
-    					   + "%nDigite o novo limite (Pressione ENTER para manter o valor atual", limite);
+    			   System.out.printf(Cores.TEXT_YELLOW + "Limite atual: " + Cores.TEXT_WHITE + "%.2f" + Cores.TEXT_YELLOW 
+    					   + "%nDigite o novo limite " + Cores.TEXT_GREEN + "(Pressione ENTER para manter o valor atual" + Cores.TEXT_WHITE, limite);
     			   entrada = leia.nextLine();
     			   
     			   limite = entrada.isEmpty() ? limite : Float.parseFloat(entrada.replace(",","."));
@@ -258,8 +271,8 @@ public class Menu {
     			   int aniversario = contaPoupanca.getAniversario();
     			   
     			   //Atualiza o aniversario ou mantém o valor atual
-    			   System.out.printf("Dia do aniversario atual: %d"
-    					   + "%nDigite o novo dia do aniversário da conta (Pressione ENTER para manter o valor atual)", aniversario);
+    			   System.out.printf(Cores.TEXT_YELLOW + "Dia do aniversario atual: " + Cores.TEXT_WHITE + "%d" + Cores.TEXT_YELLOW 
+    					   + "%nDigite o novo dia do aniversário da conta " + Cores.TEXT_GREEN + "(Pressione ENTER para manter o valor atual)" + Cores.TEXT_WHITE, aniversario);
     			   entrada = leia.nextLine();
     			   
     			   aniversario = entrada.isEmpty() ? aniversario : Integer.parseInt(entrada);
@@ -270,12 +283,58 @@ public class Menu {
     		   }
     		   
     	   }else {
-    		   System.out.printf("\nA conta número %d não foi encontrada!", numero);
+    		   System.out.printf(Cores.TEXT_RED + "\nA conta número %d não foi encontrada!", numero);
     	   }
     	   
        }
-    	  
+       
+       public static void sacar() {
+    	   
+    	   System.out.println(Cores.TEXT_YELLOW + "Digite o número da conta: " + Cores.TEXT_WHITE);
+    	   int numero = leia.nextInt();
+    	   
+    	   System.out.println(Cores.TEXT_YELLOW + "Digite o valor do saque: " + Cores.TEXT_WHITE);
+    	   float valor = leia.nextFloat();
+    	   
+    	   contaController.sacar(numero, valor);
        }
+       
+       public static void depositar() {
+    	   
+    	   System.out.println(Cores.TEXT_YELLOW + "Digite o número da conta: " + Cores.TEXT_WHITE);
+    	   int numero = leia.nextInt();
+    	   
+    	   System.out.println(Cores.TEXT_YELLOW + "Digite o valor do depósito: " + Cores.TEXT_WHITE);
+    	   float valor = leia.nextFloat();
+    	   leia.nextLine();
+    	   
+    	   contaController.depositar(numero, valor);
+       }
+       
+       public static void transferir() {
+    	   
+    	   System.out.println(Cores.TEXT_YELLOW + "Digite o número da conta de origem: " + Cores.TEXT_WHITE);
+    	   int numeroOrigem = leia.nextInt();
+    	   
+    	   System.out.println(Cores.TEXT_YELLOW + "Digite o número da conta de destino: " + Cores.TEXT_WHITE);
+    	   int numeroDestino = leia.nextInt();
+    	   
+    	   System.out.println(Cores.TEXT_YELLOW + "Digite o valor da transferência: " + Cores.TEXT_WHITE);
+    	   float valor = leia.nextFloat();
+    	   leia.nextLine();
+    	   
+    	   contaController.transferir(numeroOrigem, numeroDestino, valor);
+    	   
+       }
+    	  
+       public static void listarPorTitular() {
+    	   
+    	   System.out.println(Cores.TEXT_YELLOW + "Digite o nome do titular da conta: " + Cores.TEXT_WHITE);
+    	   String titular = leia.nextLine();
+    	   
+    	   contaController.listarPorTitular(titular);
+       }
+  }
          
 
          
